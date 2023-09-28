@@ -29,8 +29,8 @@
                 <li class="nav-item {{ Request::routeIs('access') ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('access')}}">アクセス</a>
                 </li>
-                <li class="nav-item {{ Request::routeIs('inquiry.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="#">お問合せ</a>
+                <li class="nav-item {{ Request::routeIs('contact.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('contact.create')}}">お問合せ</a>
                 </li>
             </ul>
         </div>
