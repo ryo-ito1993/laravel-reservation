@@ -2,7 +2,7 @@
 @section('title', 'TOP')
 @section('content')
 
-<div>
+<div class="mt-4">
     <h2>TOPページ</h2>
 </div>
 @endsection
