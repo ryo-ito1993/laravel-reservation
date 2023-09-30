@@ -321,7 +321,7 @@ return [
         ],
         [
             'text' => '宿泊プラン一覧',
-            'url'  => '#',
+            'url'  => 'admin/plans',
         ],
         [
             'text' => '予約一覧',

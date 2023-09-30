@@ -6,6 +6,7 @@ return [
     'max' => [
         'numeric' => ':attribute は :max 以下を入力してください。',
         'string' => ':attribute は :max 文字以内で入力してください。',
+        'array' => ':attribute は :max つ以下で指定してください。',
     ],
     'min' => [
         'numeric' => ':attribute は :min 以上を入力してください。',
@@ -28,6 +29,9 @@ return [
         'price' => '料金',
         'start_date' => '開始日',
         'end_date' => '終了日',
+        'title' => 'タイトル',
+        'description' => '説明',
+        'image' => '画像',
     ],
     'custom' => [
         'room_id' => [

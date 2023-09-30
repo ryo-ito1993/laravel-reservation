@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="{{ route('admin.reservation_slots.update', $slot->id) }}" method="post">
+    <form action="{{ route('admin.reservation_slots.update', $slot) }}" method="post">
         @csrf
         @method('PUT')
         @if ($errors->any())
