@@ -21,5 +21,17 @@ return [
         'name' => 'お名前',
         'email' => 'メールアドレス',
         'message' => 'お問合せ内容',
+        'room_id' => '部屋タイプ',
+        'available_slots' => '予約枠数',
+        'date' => '日付',
+        'price' => '料金',
+        'start_date' => '開始日',
+        'end_date' => '終了日',
     ],
+    'custom' => [
+        'room_id' => [
+            'unique_room_date' => '部屋タイプと日付の組み合わせが既に存在します。:dates',
+        ],
+    ],
+
 ];

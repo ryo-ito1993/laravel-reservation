@@ -317,7 +317,7 @@ return [
         ],
         [
             'text' => '予約枠一覧',
-            'url'  => '#',
+            'url'  => 'admin/reservation_slots',
         ],
         [
             'text' => '宿泊プラン一覧',
