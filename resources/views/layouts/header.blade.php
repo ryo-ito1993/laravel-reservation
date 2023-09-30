@@ -20,8 +20,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item {{ Request::routeIs('plan.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="#">宿泊プラン</a>
+                <li class="nav-item {{ Request::routeIs('plans.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('plans.index')}}">宿泊プラン</a>
                 </li>
                 <li class="nav-item {{ Request::routeIs('rooms') ? 'active' : '' }}">
                     <a class="nav-link" href="{{route('rooms')}}">客室一覧</a>

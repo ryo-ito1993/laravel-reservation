@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\ReservationSlotController;
-use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\Admin\PlanController as AdminPlanController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,14 @@ Route::prefix('contact')
         Route::post('complete', 'send')->name('send');
     });
 
+Route::prefix('plans')
+->name('plans.')
+->controller(PlanController::class)
+->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('{plan}', 'show')->name('show');
+});
+
 Route::middleware(['auth'])
     ->prefix('admin')
     ->name('admin.')
@@ -64,13 +74,13 @@ Route::middleware(['auth'])
     Route::put('reservation_slots/{slot}', [ReservationSlotController::class, 'update'])->whereNumber('slot')->name('reservation_slots.update');
     Route::delete('reservation_slots/{slot}', [ReservationSlotController::class, 'destroy'])->whereNumber('slot')->name('reservation_slots.destroy');
 
-    Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
-    Route::get('/plans/create', [PlanController::class, 'create'])->name('plans.create');
-    Route::post('/plans', [PlanController::class, 'store'])->name('plans.store');
-    Route::get('/plans/{plan}', [PlanController::class, 'show'])->name('plans.show');
-    Route::get('plans/{plan}/edit', [PlanController::class, 'edit'])->whereNumber('plan')->name('plans.edit');
-    Route::put('plans/{plan}', [PlanController::class, 'update'])->whereNumber('plan')->name('plans.update');
-    Route::delete('plans/{plan}', [PlanController::class, 'destroy'])->whereNumber('plan')->name('plans.destroy');
+    Route::get('/plans', [AdminPlanController::class, 'index'])->name('plans.index');
+    Route::get('/plans/create', [AdminPlanController::class, 'create'])->name('plans.create');
+    Route::post('/plans', [AdminPlanController::class, 'store'])->name('plans.store');
+    Route::get('/plans/{plan}', [AdminPlanController::class, 'show'])->name('plans.show');
+    Route::get('plans/{plan}/edit', [AdminPlanController::class, 'edit'])->whereNumber('plan')->name('plans.edit');
+    Route::put('plans/{plan}', [AdminPlanController::class, 'update'])->whereNumber('plan')->name('plans.update');
+    Route::delete('plans/{plan}', [AdminPlanController::class, 'destroy'])->whereNumber('plan')->name('plans.destroy');
 });
 
 require __DIR__ . '/auth.php';
