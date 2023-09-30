@@ -37,7 +37,7 @@
                     <td>{{ $slot->price }}</td>
                     <td>
                         <!-- 編集ボタン -->
-                        <a href="#" class="btn btn-warning">編集</a>
+                        <a href="{{ route('admin.reservation_slots.edit', $slot) }}" class="btn btn-warning">編集</a>
                     </td>
                     <td>
                         <!-- 削除ボタン -->

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Models\ReservationSlot;
@@ -31,7 +30,7 @@ class ReservationSlotRequest extends FormRequest
             }
             if (!empty($conflictingDates)) {
                 $validator->addReplacer('unique_room_date', function ($message, $attribute, $rule, $parameters) use ($conflictingDates) {
-                    return str_replace(':dates', implode(', ', $conflictingDates), $message);
+                    return str_replace(':date', implode(', ', $conflictingDates), $message);
                 });
                 return false;
             }

@@ -59,6 +59,8 @@ Route::middleware(['auth'])
     Route::get('/reservation_slots', [ReservationSlotController::class, 'index'])->name('reservation_slots.index');
     Route::get('/reservation_slots/create', [ReservationSlotController::class, 'create'])->name('reservation_slots.create');
     Route::post('/reservation_slots', [ReservationSlotController::class, 'store'])->name('reservation_slots.store');
+    Route::get('reservation_slots/{slot}/edit', [ReservationSlotController::class, 'edit'])->whereNumber('slot')->name('reservation_slots.edit');
+    Route::put('reservation_slots/{slot}', [ReservationSlotController::class, 'update'])->whereNumber('slot')->name('reservation_slots.update');
     Route::delete('reservation_slots/{slot}', [ReservationSlotController::class, 'destroy'])->whereNumber('slot')->name('reservation_slots.destroy');
 });
 

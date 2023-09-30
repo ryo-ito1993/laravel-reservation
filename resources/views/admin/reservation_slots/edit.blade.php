@@ -1,14 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', '予約枠作成')
+@section('title', '予約枠編集')
 
 @section('content_header')
-    <h1>予約枠作成</h1>
+    <h1>予約枠編集</h1>
 @stop
 
 @section('content')
-    <form action="{{ route('admin.reservation_slots.store') }}" method="post">
+    <form action="{{ route('admin.reservation_slots.update', $slot->id) }}" method="post">
         @csrf
+        @method('PUT')
         @if ($errors->any())
             <div class="alert">
                 <x-error-messages :$errors />
@@ -18,21 +19,16 @@
         <div class="mb-3">
             <label for="room_id" class="form-label">部屋タイプ:</label>
             <select name="room_id" id="room_id" class="form-select">
-                <option disabled selected value>選択してください</option>
+                <option disabled value>選択してください</option>
                 @foreach($rooms as $room)
-                    <option value="{{ $room->id }}" {{ old('room_id') == $room->id ? 'selected' : '' }}>{{ $room->type }}</option>
+                    <option value="{{ $room->id }}" {{ old('room_id', $slot->room_id) == $room->id ? 'selected' : '' }}>{{ $room->type }}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="mb-3">
-            <label for="start_date" class="form-label">開始日:</label>
-            <input type="date" name="start_date" id="start_date" class="form-control" value="{{ old('start_date') }}">
-        </div>
-
-        <div class="mb-3">
-            <label for="end_date" class="form-label">終了日:</label>
-            <input type="date" name="end_date" id="end_date" class="form-control" value="{{ old('end_date') }}">
+            <label for="date" class="form-label">日付:</label>
+            <input type="date" name="date" id="date" class="form-control" value="{{ old('date', $slot->date) }}">
         </div>
 
         <div class="mb-3">
@@ -43,10 +39,10 @@
 
         <div class="mb-3">
             <label for="price" class="form-label">料金:</label>
-            <input type="number" name="price" id="price" class="form-control" value="{{ old('price') }}">
+            <input type="number" name="price" id="price" class="form-control" value="{{ old('price', $slot->price) }}">
         </div>
 
-        <button type="submit" class="btn btn-primary">送信</button>
+        <button type="submit" class="btn btn-primary">更新</button>
     </form>
 
     <script>
@@ -61,7 +57,7 @@
                 let options = '';
 
                 for (let i = 1; i <= selectedRoom.room_count; i++) {
-                    const selected = i == "{{ old('available_slots') }}" ? 'selected' : '';
+                    const selected = i == "{{ old('available_slots', $slot->available_slots) }}" ? 'selected' : '';
                     options += `<option value="${i}" ${selected}>${i}</option>`;
                 }
 
