@@ -13,13 +13,26 @@ return [
     ],
     'numeric' => ':attribute は数値で入力してください。',
     'required' => ':attribute は必須入力です',
-    'unique' => ':attribute は既に登録されています。',
+    'unique' => ':attribute の :date は既に登録されています。',
     'email' => ':attribute 正しい形式で入力してください。',
+    'after_or_equal' => ':attribute は :date 以降の日付を入力してください。',
 
     // キー名も日本語に変更
     'attributes' => [
         'name' => 'お名前',
         'email' => 'メールアドレス',
         'message' => 'お問合せ内容',
+        'room_id' => '部屋タイプ',
+        'available_slots' => '予約枠数',
+        'date' => '日付',
+        'price' => '料金',
+        'start_date' => '開始日',
+        'end_date' => '終了日',
     ],
+    'custom' => [
+        'room_id' => [
+            'unique_room_date' => '部屋タイプと日付の組み合わせが既に存在します。:date',
+        ],
+    ],
+
 ];

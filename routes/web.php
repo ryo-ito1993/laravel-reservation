@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\ReservationSlotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,12 @@ Route::middleware(['auth'])
     Route::get('/contacts/{contact}', [AdminContactController::class, 'show'])->name('contacts.show');
     Route::patch('/contacts/{contact}/updateStatus', [AdminContactController::class, 'updateStatus'])->name('contacts.updateStatus');
 
+    Route::get('/reservation_slots', [ReservationSlotController::class, 'index'])->name('reservation_slots.index');
+    Route::get('/reservation_slots/create', [ReservationSlotController::class, 'create'])->name('reservation_slots.create');
+    Route::post('/reservation_slots', [ReservationSlotController::class, 'store'])->name('reservation_slots.store');
+    Route::get('reservation_slots/{slot}/edit', [ReservationSlotController::class, 'edit'])->whereNumber('slot')->name('reservation_slots.edit');
+    Route::put('reservation_slots/{slot}', [ReservationSlotController::class, 'update'])->whereNumber('slot')->name('reservation_slots.update');
+    Route::delete('reservation_slots/{slot}', [ReservationSlotController::class, 'destroy'])->whereNumber('slot')->name('reservation_slots.destroy');
 });
 
 require __DIR__ . '/auth.php';
