@@ -42,7 +42,7 @@
                         <form action="{{ route('admin.plans.destroy', $plan) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <button type="submit" class="btn btn-danger" onclick='return confirm("本当に削除しますか？")'>削除</button>
                         </form>
                     </td>
                 </tr>

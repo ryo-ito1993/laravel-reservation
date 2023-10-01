@@ -36,15 +36,13 @@
                     <td>{{ $slot->available_slots }}</td>
                     <td>{{ $slot->price }}</td>
                     <td>
-                        <!-- 編集ボタン -->
                         <a href="{{ route('admin.reservation_slots.edit', $slot) }}" class="btn btn-warning">編集</a>
                     </td>
                     <td>
-                        <!-- 削除ボタン -->
                         <form action="{{ route('admin.reservation_slots.destroy', $slot) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <button type="submit" class="btn btn-danger" onclick='return confirm("本当に削除しますか？")'>削除</button>
                         </form>
                     </td>
                 </tr>
