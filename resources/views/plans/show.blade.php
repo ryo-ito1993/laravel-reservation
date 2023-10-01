@@ -15,7 +15,7 @@
     </div>
 
     <div class="mt-4">
-        <a href="#" class="btn btn-primary">空室確認へ</a>
+        <a href="{{ route('reservation.calender', ['plan' => $plan, 'room' => $room]) }}" class="btn btn-primary">空室確認へ</a>
     </div>
 </div>
 @endsection
