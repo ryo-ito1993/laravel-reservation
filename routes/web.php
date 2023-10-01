@@ -60,6 +60,7 @@ Route::prefix('plans')
 });
 
 Route::get('reservation/calender/{plan}/{room}', [ReservationController::class, 'calender'])->name('reservation.calender');
+Route::get('reservation/create/{plan}/{room}', [ReservationController::class, 'create'])->name('reservation.create');
 
 Route::get('/calenders/{plan}/{room}', [\App\Http\Controllers\CalenderController::class, 'index']);
 

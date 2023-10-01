@@ -42,29 +42,40 @@
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var selectedPlanId = "{{ $plan->id }}";
-        var selectedRoomId = "{{ $room->id }}";
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: '/calenders/' + selectedPlanId + '/' + selectedRoomId,
-            eventContent: function(arg) {
-                let title = arg.event.title.split('|');
-                let content = '<div>';
-                for (let i = 0; i < title.length; i++) {
-                    if (title[i] !== "") {
-                        content += `<div>${title[i]}</div>`;
-                    } else {
-                        content += '<div></div>'; // 空のdivを追加して改行を実現
-                    }
-                }
-                content += '</div>';
-                return { html: content };
+document.addEventListener('DOMContentLoaded', function () {
+    var selectedPlanId = "{{ $plan->id }}";
+    var selectedRoomId = "{{ $room->id }}";
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: '/calenders/' + selectedPlanId + '/' + selectedRoomId,
+        eventContent: function(arg) {
+            let title = arg.event.title.split('|');
+            let content = `
+                <div>
+                    <div>${title[0]}</div>
+                    <div>${title[1]}</div>
+                </div>
+            `;
+            return { html: content };
+        },
+        eventClick: function(info) {
+            if (info.event.extendedProps.available_slots === 0) {
+                return;
             }
-        });
-        calendar.render();
+            var slotId = info.event.id;
+            var url = `/reservation/create/${selectedPlanId}/${slotId}`;
+            // 生成したURLにリダイレクト
+            window.location.href = url;
+        },
     });
+    calendar.render();
+});
 </script>
+<style>
+.fc-event {
+    cursor: pointer;
+}
+</style>
 
 @endsection
