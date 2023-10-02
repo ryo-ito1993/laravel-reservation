@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\ReservationSlotController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\Admin\PlanController as AdminPlanController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +91,10 @@ Route::middleware(['auth'])
         Route::get('plans/{plan}/edit', [AdminPlanController::class, 'edit'])->whereNumber('plan')->name('plans.edit');
         Route::put('plans/{plan}', [AdminPlanController::class, 'update'])->whereNumber('plan')->name('plans.update');
         Route::delete('plans/{plan}', [AdminPlanController::class, 'destroy'])->whereNumber('plan')->name('plans.destroy');
+
+        Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
+        Route::get('/reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
+        Route::patch('/reservations/{reservation}/updateStatus', [AdminReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
     });
 
 require __DIR__ . '/auth.php';

@@ -18,7 +18,7 @@
                 <th>ID</th>
                 <th>名前</th>
                 <th>メールアドレス</th>
-                <th>ステータス</th>
+                <th>対応状況</th>
                 <th>詳細</th>
             </tr>
         </thead>
