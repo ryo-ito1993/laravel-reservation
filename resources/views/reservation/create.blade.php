@@ -14,6 +14,7 @@
                     <h6>予約日：{{ \Carbon\Carbon::parse($slot->date)->format('Y年m月d日') }}</h6>
                     <h6>プラン：{{ $plan->title }}</h6>
                     <h6>部屋タイプ：{{ $slot->room->type }}</h6>
+                    <h6>金額：￥{{ number_format($slot->price + $plan->price )}}</h6>
                     <div class="mt-1">
                         <a href="{{ route('reservation.calender', ['plan' => $plan, 'room' => $slot->room]) }}">空席確認へ戻る</a>
                     </div>

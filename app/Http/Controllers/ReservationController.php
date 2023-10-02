@@ -9,6 +9,9 @@ use App\Models\ReservationSlot;
 use App\Models\Reservation;
 use App\Http\Requests\ReservationRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationSendmail;
+
 
 class ReservationController extends Controller
 {
@@ -39,7 +42,7 @@ class ReservationController extends Controller
                 ->withInput($inputs);
 
         } else {
-            DB::transaction(function () use ($inputs, $plan, $slot) {
+            DB::transaction(function () use ($request, $inputs, $plan, $slot) {
                 Reservation::create([
                     'plan_id' => $plan->id,
                     'reservation_slot_id' => $slot->id,
@@ -55,10 +58,10 @@ class ReservationController extends Controller
                     $slot->decrement('available_slots');
                 }
 
-                // Mail::to($inputs['email'])->send(new ContactSendmail($inputs));
+                Mail::to($inputs['email'])->send(new ReservationSendmail($inputs, $plan, $slot));
                 // Mail::to('admin@example.com')->send(new ContactAdminNotification($inputs));
                 // //再送信を防ぐためにトークンを再発行
-                // $request->session()->regenerateToken();
+                $request->session()->regenerateToken();
 
                 session(['reservation_completed' => true]);
             });
