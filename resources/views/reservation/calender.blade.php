@@ -6,7 +6,7 @@
 <div class="container">
     <h2 class="mt-4 mb-4">空室カレンダー</h2>
     <div class="row offset-1">
-        <div class="border border-1 bg-white m-3 p-3 d-flex col-10">
+        <div class="border border-1 m-3 p-3 d-flex col-10">
             <div class="me-3">
                 <img src="{{ asset('storage/' . $plan->images[0]->image) }}" alt="Plan Image" class="img-fluid" style="height: 90px; width: 120px object-fit: cover; ">
             </div>

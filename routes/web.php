@@ -62,6 +62,8 @@ Route::prefix('plans')
 Route::get('reservation/calender/{plan}/{room}', [ReservationController::class, 'calender'])->name('reservation.calender');
 Route::get('reservation/create/{plan}/{slot}', [ReservationController::class, 'create'])->name('reservation.create');
 Route::post('reservation/confirm/{plan}/{slot}', [ReservationController::class, 'confirm'])->name('reservation.confirm');
+Route::post('reservation/send/{plan}/{slot}', [ReservationController::class, 'send'])->name('reservation.send');
+Route::get('reservation/complete/{plan}/{slot}', [ReservationController::class, 'complete'])->name('reservation.complete');
 
 Route::get('/calenders/{plan}/{room}', [\App\Http\Controllers\CalenderController::class, 'index']);
 

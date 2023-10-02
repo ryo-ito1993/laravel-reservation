@@ -6,13 +6,14 @@
     <div class="row">
         <div class="col-md-10 mx-auto">
             <h2 class="mb-4">予約フォーム</h2>
-            <div class="border border-1 bg-white mb-4 p-3 d-flex col-10">
+            <div class="border border-1 mb-4 p-3 d-flex col-10">
                 <div class="me-3">
                     <img src="{{ asset('storage/' . $plan->images[0]->image) }}" alt="Plan Image" class="img-fluid" style="height: 90px; width: 120px object-fit: cover; ">
                 </div>
                 <div  class="ml-3">
-                    <h5>プラン：{{ $plan->title }}</h5>
-                    <h5>部屋タイプ：{{ $slot->room->type }}</h5>
+                    <h6>予約日：{{ \Carbon\Carbon::parse($slot->date)->format('Y年m月d日') }}</h6>
+                    <h6>プラン：{{ $plan->title }}</h6>
+                    <h6>部屋タイプ：{{ $slot->room->type }}</h6>
                     <div class="mt-1">
                         <a href="{{ route('reservation.calender', ['plan' => $plan, 'room' => $slot->room]) }}">空席確認へ戻る</a>
                     </div>

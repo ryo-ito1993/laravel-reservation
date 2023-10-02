@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\ReservationSlot;
 use App\Models\Plan;
 use App\Models\Room;
+use Carbon\Carbon;
 
 class CalenderController extends Controller
 {
     public function index(Plan $plan, Room $room)
     {
-        $slots = ReservationSlot::where('room_id', $room->id)->get();
+        $slots = ReservationSlot::where('room_id', $room->id)->where('date', Carbon::tomorrow())->get();
         $events = [];
         foreach ($slots as $slot) {
             if ($slot->available_slots >= 3) {
