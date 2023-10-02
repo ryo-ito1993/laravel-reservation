@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
-
+use App\Models\Room;
 
 class PlanController extends Controller
 {
@@ -25,6 +25,7 @@ class PlanController extends Controller
     public function show(Plan $plan)
     {
         $plan->load('images');
-        return view('plans.show', compact('plan'));
+        $room = Room::first();
+        return view('plans.show', compact('plan', 'room'));
     }
 }

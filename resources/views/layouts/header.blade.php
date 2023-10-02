@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -38,6 +38,5 @@
     <div class="container">
         @yield('content')
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

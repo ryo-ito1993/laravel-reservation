@@ -32,6 +32,10 @@ return [
         'title' => 'タイトル',
         'description' => '説明',
         'image' => '画像',
+        'last_name' => '姓',
+        'first_name' => '名',
+        'address' => '住所',
+        'phone_number' => '電話番号',
     ],
     'custom' => [
         'room_id' => [
