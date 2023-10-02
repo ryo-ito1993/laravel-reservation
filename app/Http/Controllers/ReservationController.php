@@ -11,7 +11,7 @@ use App\Http\Requests\ReservationRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationSendmail;
-
+use App\Mail\ReservationAdminNotification;
 
 class ReservationController extends Controller
 {
@@ -59,7 +59,7 @@ class ReservationController extends Controller
                 }
 
                 Mail::to($inputs['email'])->send(new ReservationSendmail($inputs, $plan, $slot));
-                // Mail::to('admin@example.com')->send(new ContactAdminNotification($inputs));
+                Mail::to('admin@example.com')->send(new ReservationAdminNotification($inputs, $plan, $slot));
                 // //再送信を防ぐためにトークンを再発行
                 $request->session()->regenerateToken();
 
