@@ -41,6 +41,13 @@
                                 </select>
                             </form>
                         </p>
+                        <p class="card-text">メモ：{{ $reservation->note }}</p>
+                        <form action="{{ route('admin.reservations.updateNote', $reservation) }}" method="post">
+                            @csrf
+                            @method('PATCH')
+                            <input type="text" name="note" class="form-control" value="{{ $reservation->note }}">
+                            <button type="submit" class="btn btn-primary mt-2">メモを更新</button>
+                        </form>
                     </div>
                 </div>
                 <a href="{{ route('admin.reservations.index') }}" class="btn btn-secondary mt-3">戻る</a>

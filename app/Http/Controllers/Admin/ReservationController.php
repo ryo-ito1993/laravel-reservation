@@ -34,4 +34,11 @@ class ReservationController extends Controller
         });
         return redirect()->back()->with('success', '予約状況が更新されました。');
     }
+
+    public function updateNote(Request $request, Reservation $reservation)
+    {
+        $reservation->note = $request->note;
+        $reservation->save();
+        return redirect()->back()->with('success', 'メモが更新されました。');
+    }
 }

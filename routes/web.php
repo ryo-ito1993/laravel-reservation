@@ -95,6 +95,7 @@ Route::middleware(['auth'])
         Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
         Route::get('/reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
         Route::patch('/reservations/{reservation}/updateStatus', [AdminReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+        Route::patch('/admin/reservations/{reservation}/note', [AdminReservationController::class, 'updateNote'])->name('reservations.updateNote');
     });
 
 require __DIR__ . '/auth.php';
