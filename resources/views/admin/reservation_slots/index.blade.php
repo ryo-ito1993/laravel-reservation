@@ -28,18 +28,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($reservation_slots as $slot)
+            @foreach($reservation_slots as $reservation_slot)
                 <tr>
-                    <td>{{ $slot->id }}</td>
-                    <td>{{ $slot->room->type }}</td>
-                    <td>{{ $slot->date }}</td>
-                    <td>{{ $slot->available_slots }}</td>
-                    <td>{{ $slot->price }}</td>
+                    <td>{{ $reservation_slot->id }}</td>
+                    <td>{{ $reservation_slot->room->type }}</td>
+                    <td>{{ $reservation_slot->date }}</td>
+                    <td>{{ $reservation_slot->available_slots }}</td>
+                    <td>{{ $reservation_slot->price }}</td>
                     <td>
-                        <a href="{{ route('admin.reservation_slots.edit', $slot) }}" class="btn btn-warning">編集</a>
+                        <a href="{{ route('admin.reservation_slots.edit', $reservation_slot) }}" class="btn btn-warning">編集</a>
                     </td>
                     <td>
-                        <form action="{{ route('admin.reservation_slots.destroy', $slot) }}" method="post">
+                        <form action="{{ route('admin.reservation_slots.destroy', $reservation_slot) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick='return confirm("本当に削除しますか？")'>削除</button>

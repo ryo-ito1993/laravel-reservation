@@ -325,7 +325,7 @@ return [
         ],
         [
             'text' => '予約一覧',
-            'url'  => '#',
+            'url'  => 'admin/reservations',
         ],
         [
             'text' => 'profile',

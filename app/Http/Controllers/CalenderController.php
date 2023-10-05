@@ -12,7 +12,7 @@ class CalenderController extends Controller
 {
     public function index(Plan $plan, Room $room)
     {
-        $slots = ReservationSlot::where('room_id', $room->id)->where('date', Carbon::tomorrow())->get();
+        $slots = ReservationSlot::where('room_id', $room->id)->where('date', '>=', Carbon::tomorrow())->get();
         $events = [];
         foreach ($slots as $slot) {
             if ($slot->available_slots >= 3) {
