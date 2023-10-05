@@ -42,15 +42,15 @@ class ReservationSlotController extends Controller
         return redirect()->route('admin.reservation_slots.index')->with('message', '予約枠を作成しました。');
     }
 
-    public function edit(ReservationSlot $slot)
+    public function edit(ReservationSlot $reservation_slot)
     {
         $rooms = Room::all();
-        return view('admin.reservation_slots.edit', compact('slot', 'rooms'));
+        return view('admin.reservation_slots.edit', compact('reservation_slot', 'rooms'));
     }
 
-    public function update(UpdateReservationSlotRequest $request, ReservationSlot $slot)
+    public function update(UpdateReservationSlotRequest $request, ReservationSlot $reservation_slot)
     {
-        $slot->update([
+        $reservation_slot->update([
             'room_id' => $request->room_id,
             'date' => $request->date,
             'available_slots' => $request->available_slots,
@@ -60,9 +60,9 @@ class ReservationSlotController extends Controller
         return redirect()->route('admin.reservation_slots.index')->with('message', '予約枠を更新しました。');
     }
 
-    public function destroy(ReservationSlot $slot)
+    public function destroy(ReservationSlot $reservation_slot)
     {
-        $slot->delete();
+        $reservation_slot->delete();
 
         return redirect(route('admin.reservation_slots.index'))->with('message', '予約枠を削除しました。');
     }

@@ -1,15 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Admin\ContactController as AdminContactController;
-use App\Http\Controllers\Admin\ReservationSlotController;
-use App\Http\Controllers\PlanController;
-use App\Http\Controllers\Admin\PlanController as AdminPlanController;
-use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
-
+use App\Http\Controllers\{
+    ProfileController,ContactController,PlanController,ReservationController,
+    Admin\ContactController as AdminContactController,
+    Admin\ReservationSlotController,
+    Admin\PlanController as AdminPlanController,
+    Admin\ReservationController as AdminReservationController,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -22,21 +20,13 @@ use App\Http\Controllers\Admin\ReservationController as AdminReservationControll
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-})->name('top');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/access', function () {
-    return view('access');
-})->name('access');
-
-Route::get('/rooms', function () {
-    return view('rooms');
-})->name('rooms');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::view('/', 'top')->name('top');
+Route::view('access', 'access')->name('access');
+Route::view('rooms', 'rooms')->name('rooms');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -44,58 +34,32 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('contact')
-    ->name('contact.')
-    ->controller(ContactController::class)
-    ->group(function () {
-        Route::get('', 'create')->name('create');
-        Route::post('confirm', 'confirm')->name('confirm');
-        Route::post('complete', 'send')->name('send');
-    });
-
-Route::prefix('plans')
-->name('plans.')
-->controller(PlanController::class)
-->group(function () {
-    Route::get('', 'index')->name('index');
-    Route::get('{plan}', 'show')->name('show');
+Route::prefix('contact')->name('contact.')->controller(ContactController::class)->group(function () {
+    Route::get('', 'create')->name('create');
+    Route::post('confirm', 'confirm')->name('confirm');
+    Route::post('complete', 'send')->name('send');
 });
 
-Route::get('reservation/calender/{plan}/{room}', [ReservationController::class, 'calender'])->name('reservation.calender');
-Route::get('reservation/create/{plan}/{slot}', [ReservationController::class, 'create'])->name('reservation.create');
-Route::post('reservation/confirm/{plan}/{slot}', [ReservationController::class, 'confirm'])->name('reservation.confirm');
-Route::post('reservation/send/{plan}/{slot}', [ReservationController::class, 'send'])->name('reservation.send');
-Route::get('reservation/complete/{plan}/{slot}', [ReservationController::class, 'complete'])->name('reservation.complete');
+Route::resource('plans', PlanController::class)->only(['index', 'show']);
+
+Route::prefix('reservation')->name('reservation.')->controller(ReservationController::class)->group(function (){
+    Route::get('calender/{plan}/{room}', 'calender')->name('calender');
+    Route::get('create/{plan}/{slot}', 'create')->name('create');
+    Route::post('confirm/{plan}/{slot}', 'confirm')->name('confirm');
+    Route::post('send/{plan}/{slot}', 'send')->name('send');
+    Route::get('complete/{plan}/{slot}', 'complete')->name('complete');
+});
 
 Route::get('/calenders/{plan}/{room}', [\App\Http\Controllers\CalenderController::class, 'index']);
 
-Route::middleware(['auth'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-        Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts.index');
-        Route::get('/contacts/{contact}', [AdminContactController::class, 'show'])->name('contacts.show');
-        Route::patch('/contacts/{contact}/updateStatus', [AdminContactController::class, 'updateStatus'])->name('contacts.updateStatus');
-
-        Route::get('/reservation_slots', [ReservationSlotController::class, 'index'])->name('reservation_slots.index');
-        Route::get('/reservation_slots/create', [ReservationSlotController::class, 'create'])->name('reservation_slots.create');
-        Route::post('/reservation_slots', [ReservationSlotController::class, 'store'])->name('reservation_slots.store');
-        Route::get('reservation_slots/{slot}/edit', [ReservationSlotController::class, 'edit'])->whereNumber('slot')->name('reservation_slots.edit');
-        Route::put('reservation_slots/{slot}', [ReservationSlotController::class, 'update'])->whereNumber('slot')->name('reservation_slots.update');
-        Route::delete('reservation_slots/{slot}', [ReservationSlotController::class, 'destroy'])->whereNumber('slot')->name('reservation_slots.destroy');
-
-        Route::get('/plans', [AdminPlanController::class, 'index'])->name('plans.index');
-        Route::get('/plans/create', [AdminPlanController::class, 'create'])->name('plans.create');
-        Route::post('/plans', [AdminPlanController::class, 'store'])->name('plans.store');
-        Route::get('/plans/{plan}', [AdminPlanController::class, 'show'])->name('plans.show');
-        Route::get('plans/{plan}/edit', [AdminPlanController::class, 'edit'])->whereNumber('plan')->name('plans.edit');
-        Route::put('plans/{plan}', [AdminPlanController::class, 'update'])->whereNumber('plan')->name('plans.update');
-        Route::delete('plans/{plan}', [AdminPlanController::class, 'destroy'])->whereNumber('plan')->name('plans.destroy');
-
-        Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
-        Route::get('/reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
-        Route::patch('/reservations/{reservation}/updateStatus', [AdminReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
-        Route::patch('/admin/reservations/{reservation}/note', [AdminReservationController::class, 'updateNote'])->name('reservations.updateNote');
-    });
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('contacts', AdminContactController::class)->only(['index', 'show']);
+    Route::patch('/contacts/{contact}/updateStatus', [AdminContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+    Route::resource('reservation_slots', ReservationSlotController::class);
+    Route::resource('plans', AdminPlanController::class);
+    Route::resource('reservations', AdminReservationController::class)->only(['index', 'show']);
+    Route::patch('/reservations/{reservation}/updateStatus', [AdminReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+    Route::patch('/admin/reservations/{reservation}/note', [AdminReservationController::class, 'updateNote'])->name('reservations.updateNote');
+});
 
 require __DIR__ . '/auth.php';

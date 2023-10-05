@@ -15,7 +15,7 @@ class UpdateReservationSlotRequest extends FormRequest
         Validator::extend('unique_room_date', function ($attribute, $value, $parameters, $validator) {
             $roomId = $value;
             $date = $validator->getData()['date'];
-            $id = $this->route('slot')->id;
+            $id = $this->route('reservation_slot')->id;
 
             $exists = ReservationSlot::where('room_id', $roomId)
                         ->where('date', $date)

@@ -52,7 +52,7 @@
                         <option value="1" {{ request('status') === "1" ? 'selected' : '' }}>キャンセル</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-secondary">検索</button>
+                <button type="submit" class="btn btn-primary">検索</button>
             </form>
         </div>
     </div>
