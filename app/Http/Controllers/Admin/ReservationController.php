@@ -8,7 +8,7 @@ use App\Models\Reservation;
 use App\Models\Plan;
 use App\Models\Room;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ReservationCancelmail;
+use App\Mail\ReservationCancelMail;
 use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
@@ -69,11 +69,13 @@ class ReservationController extends Controller
         DB::transaction(function () use ($request, $reservation) {
             $reservation->status = $request->status;
             $reservation->save();
-            if ($reservation->reservation_slot->available_slots < $reservation->reservation_slot->room->room_count) {
-                $reservation->reservation_slot->increment('available_slots');
-            }
-            Mail::to($reservation->email)->send(new ReservationCancelMail($reservation));
-        });
+            if ($request->status == "1") {
+                if ($reservation->reservation_slot->available_slots < $reservation->reservation_slot->room->room_count) {
+                    $reservation->reservation_slot->increment('available_slots');
+                }
+                Mail::to($reservation->email)->send(new ReservationCancelMail($reservation));
+                }
+            });
         return redirect()->back()->with('success', '予約状況が更新されました。');
     }
 
