@@ -43,10 +43,10 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var selectedPlanId = "{{ $plan->id }}";
-    var selectedRoomId = "{{ $room->id }}";
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let selectedPlanId = "{{ $plan->id }}";
+    let selectedRoomId = "{{ $room->id }}";
+    let calendarEl = document.getElementById('calendar');
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         events: '/calenders/' + selectedPlanId + '/' + selectedRoomId,
         eventContent: function(arg) {
@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (info.event.extendedProps.available_slots === 0) {
                 return;
             }
-            var slotId = info.event.id;
-            var url = `/reservation/create/${selectedPlanId}/${slotId}`;
+            let slotId = info.event.id;
+            let url = `/reservation/create/${selectedPlanId}/${slotId}`;
             // 生成したURLにリダイレクト
             window.location.href = url;
         },
